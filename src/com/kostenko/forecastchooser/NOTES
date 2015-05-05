@@ -1,0 +1,4 @@
+1. What are other methods to parse/process .xml data except DOM?
+2. Understand what Logger.getLogger(XMLParser.class.getName()).log(Level.SEVERE, null, ex); means
+3. Use "Date" class for the comparing times in "parseDocumentOPENWEATHER"
+4. 
