@@ -15,3 +15,5 @@
 - Implement a GUI
 - Implement a graph in GUI
 - Create a separate class utils
+- Implement automatic start
+- Implement another DB (MySQL, Postgres, etc.)
