@@ -5,12 +5,6 @@
  */
 package com.kostenko.forecastchooser;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.transform.TransformerException;
 import org.w3c.dom.Document;
 
 /**
@@ -22,38 +16,34 @@ public class ForecastChooser {
     /**
      * @param args the command line arguments
      */
-    
     public static void main(String[] args) {
 
         XMLParser parser = new XMLParser();
-        
+        DBConnector dBc = new DBConnector();
+
         String link1 = "http://api.openweathermap.org/data/2.5/forecast/daily?q=Tbilisi&mode=xml&units=metric&cnt=7";
         String link2 = "http://export.yandex.ru/weather-ng/forecasts/37549.xml";
         String link3 = "http://xml.weather.co.ua/1.2/forecast/53137?dayf=5&userid=YourSite_com&lang=uk";
+        String link4 = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22Tbilisi%22)&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+        String link5 = "http://open.live.bbc.co.uk/weather/feeds/en/611717/3dayforecast.rss";
         
         Document d1 = parser.getDocumentFromXML(link1);
-        parser.parseDocumentOPENWEATHER(d1);
-        
-        System.out.println("");
-        
         Document d2 = parser.getDocumentFromXML(link2);
-        parser.parseDocumentYANDEX(d2);
-        
-        System.out.println("");
-        
         Document d3 = parser.getDocumentFromXML(link3);
-        parser.parseDocumentWEATHERCOMUA(d3);
+        Document d4 = parser.getDocumentFromXML(link4);
         
+        Weather w1 = parser.parseDocumentOPENWEATHER(d1);
+        Weather w2 = parser.parseDocumentYANDEX(d2);
+        Weather w3 = parser.parseDocumentWEATHERCOUA(d3);
+        Weather w4 = parser.parseDocumentYAHOO(d4);
+        Weather actualWeather = parser.actualWeatherFromYAHOO();
         
-//        try {
-//            System.out.println("");
-//            XMLParser.printDocument(d1, System.out);
-//        } catch (IOException ex) {
-//            Logger.getLogger(ForecastChooser.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (TransformerException ex) {
-//            Logger.getLogger(ForecastChooser.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        dBc.writeToDB(w1);
+        dBc.writeToDB(w2);
+        dBc.writeToDB(w3);
+        dBc.writeToDB(w4);
+        dBc.writeToDB(actualWeather);
         
+        dBc.analyse(3);
     }
-    
 }

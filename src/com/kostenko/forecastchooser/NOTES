@@ -1,4 +1,17 @@
-1. What are other methods to parse/process .xml data except DOM?
-2. Understand what Logger.getLogger(XMLParser.class.getName()).log(Level.SEVERE, null, ex); means
-3. Use "Date" class for the comparing times in "parseDocumentOPENWEATHER"
-4. 
+- REJECTED. Implement Delta column in DB for difference between forecast and actual numbers.
+- REJECTED. Split the table into actual indicates and forecast indicates;
+- REJECTED. Devide main method into "getDataToDB" and "analyzeDataInDB" methods.
+- DONE. Use only MaxTemp for actual weather?
+- DONE. Consider to change names of the columns in the table.
+- DONE.  Add toString method to Weather.
+- DONE. Refactor Weather object to reduce the number of attributes and be more universal
+- DONE. Refactor ParseDocument methods
+- DONE. Use float instead of int for temperature.
+- DONE. Round a float values to values with two decimal points.
+- Make DBConnector.analyze() method appropriate for any quantity of weather providers
+- Use JodaTime
+- Understand what Logger.getLogger(XMLParser.class.getName()).log(Level.SEVERE, null, ex); means
+- What are other methods to parse/process .xml data except DOM?
+- Implement a GUI
+- Implement a graph in GUI
+- Create a separate class utils
